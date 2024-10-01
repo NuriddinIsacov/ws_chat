@@ -7,7 +7,8 @@ const sendMessage = ()=>{
     const message = messageInput.value
     const user = JSON.parse(localStorage.getItem('chat-user'))
     
-
+    if(message === '')
+        return false
     
     const msg = {
         type: 'message',
@@ -37,7 +38,6 @@ ws.onmessage = async (event) =>{
     
     let reader = new FileReader()
     reader.onload = ()=>{
-        console.log(reader.result);
         const msg = JSON.parse(reader.result)
         
 
@@ -75,3 +75,10 @@ const openChat = (e) =>{
 
     window.location = 'index.html'
 }
+
+addEventListener('keypress', (event) =>{
+    if(event.key === 'Enter'){
+        sendMessage()
+    }
+    
+})

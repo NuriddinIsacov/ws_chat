@@ -75,6 +75,22 @@ body{
     margin-bottom: 10px;
 }
 
+.my-message_box .message-author{
+    font-size: 12px;
+    font-weight: 500;
+    color: #94cd2d;
+    margin-bottom: 10px;
+    border-bottom: solid 1px #94cd2d;
+}
+.message-author{
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 10px;
+    border-bottom: solid 1px #fff;
+
+}
+
 
 
 /* input area styles */
