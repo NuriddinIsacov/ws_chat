@@ -1,13 +1,22 @@
-
 const ws = new WebSocket('ws://localhost:8085')
-const user = {}
+
 
 const sendMessage = ()=>{
     const chatArea = document.querySelector('.chat-area')
     const messageInput = document.querySelector('.inp-area input')
     const message = messageInput.value
+    const user = JSON.parse(localStorage.getItem('chat-user'))
+    
 
-    ws.send(JSON.stringify({ type: 'message', name: user.fullname, text: message, id: user.username }))
+    
+    const msg = {
+        type: 'message',
+        name: `${user.fullname}`, 
+        text: message, 
+        id: `${user.username}`
+    }
+    
+    ws.send(JSON.stringify(msg))
 
     messageInput.value = ''
 
@@ -21,33 +30,28 @@ const sendMessage = ()=>{
     `
 }
 
-ws.onmessage = (event) =>{
+ws.onmessage = async (event) =>{
     const chatArea = document.querySelector('.chat-area')
+    const user = JSON.parse(localStorage.getItem('chat-user'))
 
-    // if(user.username !== event.data.id){
+    
+    let reader = new FileReader()
+    reader.onload = ()=>{
+        console.log(reader.result);
+        const msg = JSON.parse(reader.result)
         
-        chatArea.innerHTML += `
-            <div class="message_box">
-                <div class="message">
-                    <div class="message-text">${event.data.message}</div>
+
+        if(msg.id !== user.username){
+            chatArea.innerHTML += `
+                <div class="message_box">
+                    <div class="message">
+                        <div class="message-author">${msg.name}</div>
+                        <div class="message-text">${msg.text}</div>
+                    </div>
                 </div>
-            </div>
-        `
-    // }
-    const reader = new FileReader()
-    // reader.onload = ()=>{
-        
-
-    //     // if(data.id !== userId){
-    //         chatArea.innerHTML += `
-    //             <div class="message_box">
-    //                 <div class="message">
-    //                     <div class="message-text">${reader.result.text}</div>
-    //                 </div>
-    //             </div>
-    //         `
-    //     // }
-    // }
+            `
+        }
+    }
 
     chatArea.scrollTop = chatArea.scrollHeight
     reader.readAsText(event.data)
@@ -60,11 +64,14 @@ const openChat = (e) =>{
     
     const loginForm = document.getElementById('formcha')    
     const formData = new FormData(loginForm)
-     
+    const user = {}
+
     formData.forEach((value, key) =>{
         console.log(`${key}: ${value}`);
         user[key] = value
     })
+
+    localStorage.setItem('chat-user', JSON.stringify(user))
 
     window.location = 'index.html'
 }
