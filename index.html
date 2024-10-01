@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-area">
+            <div class="message-box">
+                <div class="message">
+                    <div class="message-text">Hi there!</div>
+               </div>
+            </div>
+
+            <div class="my-message_box">
+                <div class="message">
+                    <div class="message-author">Author</div>
+                    <div class="message-text">Hi there!</div>
+               </div>
+            </div>
+
+            <div class="message_box">
+                <div class="message">
+                    <div class="message-author">Author</div>
+                    <div class="message-text">Hi there!</div>
+               </div>
+            </div>
+           
+        </div>
+        <div class="inp-area">
+            <input type="text" placeholder="Type something">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () =>{
+            const chatArea = document.querySelector('.chat-area')
+            chatArea.scrollTop = chatArea.scrollHeight
+        }
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
